@@ -1,4 +1,4 @@
-footer: /36 <br /> **@tmikeschu**
+footer: 74 <br /> **@tmikeschu**
 build-lists: true
 slidenumbers: true
 
@@ -7,52 +7,57 @@ slidenumbers: true
 # [fit] Start Storytelling.
 
 Mike Schutte
-Detroit ~~Craftsman~~ (Artisans? Roommates?) Guild
-May 15, 2018
+self.conference
+August 18, 2018
 
 ^ Today I'm going to show you very little code, and tell you quite a lot about how to write it.
 
 ---
 
-| Time | Topic             |
-| ---- | ----------------- |
-| 1    | About Me          |
-| 2    | Goals             |
-| 7    | Testing Paradigms |
-| 20   | Storytelling      |
-| 10   | Demo              |
-| 5    | Wrap-up           |
+| Time | Topic               |
+| ---- | ------------------- |
+| 1    | Who Is This Person? |
+| 2    | Goals               |
+| 7    | Testing Paradigms   |
+| 20   | Storytelling        |
+| 10   | Mad Libs            |
+| 5    | Wrap-up             |
 
 ---
 
 # About Me
 
-Detroit
+---
 
-Quikly (Rails, React, Node.js, Go)
+# ↓
 
-environmental science -> sociology -> software development
-University of Denver -> Indiana University -> Turing -> Quikly
+---
 
-runner, musician, reader, writer
+Haught Codeworks (Ruby, Elixir, JavaScript)
+
+---
+
+# 🌍 👥 💻
+
+---
+
+DU -> IU -> Turing -> Quikly -> HCW
+
+---
+
+# 🏃‍♂️ 🎸 📚 📝
 
 ---
 
 # Goals
 
 ---
-
-# Goals
 
 # [fit] perspective
 
 ^ My goals are A) for you all to leave thinking about testing from a different perspective than you're used to
 
 ---
-
-# Goals
-
-# [fit] perspective
 
 # [fit] confidence
 
@@ -103,9 +108,11 @@ end
 
 # Testing Paradigms
 
+---
+
 bonus word: _para-dig-MAT-ic (adj)_
 
-* a framework containing the basic assumptions, ways of thinking, and methodolog[ies] \[for discovering new ideas\] that are commonly accepted by members of a ~~scientific~~ community.[^1]
+a framework containing the basic assumptions, ways of thinking, and methodolog[ies] \[for discovering new ideas\] that are commonly accepted by members of a ~~scientific~~ community.[^1]
 
 [^1]: http://www.dictionary.com/browse/paradigm
 
@@ -113,40 +120,48 @@ bonus word: _para-dig-MAT-ic (adj)_
 
 ## Test last
 
-* The thing that's supposed to happen is the the thing that happens.
+---
 
-* ~> It's blue because it's blue 🤔.
+The thing that's supposed to happen is the the thing that happens.
+
+🤔
 
 ^ Test last is what it sounds like. Write your code, then write some tests that verifies it works. It's a bit deceitful because you're writing tests to fit the code instead of the other way around. The process might include debugging your test to figure out a return value or a side effect, then you make your assertion based on that. The problem is: what if what you found was wrong? You're accepting the existing implementation as the right way, which isn't always true. The code could be riddled with hidden bugs, and if you write a passing test, you have false assurance and you now have a flawed implementation that is backed by a passing test. It does make sense for certain types of tests. Have you heard of snapshots in the context of React/Jest/Enzyme?
 
 ---
 
-## Test last
-
 ![inline](https://media.giphy.com/media/blPpTGDhn6hEI/giphy.gif)
 
 ---
 
-![inline](http://www.barrygordon.co.uk/rediscovering-test-driven-development/img/red-green-refactor.png)
+# 🔴 💚 🔁
 
 ---
 
 # Test first
 
-* Writing a test to fit an implementation
+---
+
+Writing a test to fit an implementation
 
 ^ Test first is when you write a test with an implementation already in mind. You're kind of writing it just to, I don't know, feel like a good Rails developer. This can be totally fine, but it falls short of the philosophical benefits of the next two types: test-driven and behavior driven. This can also lead to writing rigid tests, which are more harmful than helpful.
 
 ---
 
-# Test driven
+# Test driven && behavior driven
 
-# Behavior driven
+---
 
-* Implementing code to fit a test
+Implementing code to fit a test
 
-* _"Program to an interface, not an implementation"_
+---
+
+_"Program to an interface, not an implementation"_
   > \- GOF
+
+---
+
+# 🧐
 
 ^ These two are very similar. Test driven is all about writing a test with only your testing hat on. Your implementation hat is hung on the wall during this period. Once your test is written, you do your red-green-refactor. Behavior driven is a similar process with a different state of mind. The tests you write describe the behavior or the interface of your software, not the implementation. A classic bit of Gang of Four wisdom is to program to an interface, not an implementation. I would say that the difference between TDD and BDD is essentially that: TDD writes test to an implementation, BDD to an interface and is therefore more flexible.
 
@@ -166,10 +181,13 @@ end
 
 # Storytelling and Software
 
-> _Software is **always** means to an end_
+---
 
-* Function to Feature
-* (HINT: the end is to help users.)
+_Software is **always** means to an end_
+
+---
+
+From function to feature, the end is to help users
 
 ^ So I've told you to stop testing and start storytelling.
 
@@ -195,25 +213,29 @@ func TestStoryTellingAndSoftware(t *testing.T) {
 
 ---
 
-# [fit] Storytelling and Software
+communication
 
-<br/>
+context
 
-* communication
+abstraction
 
-* context
-
-* abstraction
-
-* encapsulation
+encapsulation
 
 ---
 
 # Communication
 
-<br/>
-## Users communicate with software.
-## Let's make good listeners.
+---
+
+### Users communicate with software.
+
+# 🗣
+
+---
+
+### Let's make good listeners.
+
+# 🌽
 
 ^ Stories are all about communication. When I communicate, my goal is to get an idea from inside of my head to inside of your head and get us to agree on the meaning of that idea. Shared meaning gives us a sense of safety and comfort. CANCELLED FLIGHT SCENARIO. Good software, then, is essentially good communication. Users develop ideas of what should happen when they take certain actions. If expectations meet reality, we have successful communication between the user and the software.
 I'm always so excited to sit down and write a test because it's my chance to think about what I ultimately want the software to do, and it's my responsibility to communicate that to the test suite from the perspective of a user.
@@ -222,35 +244,53 @@ I'm always so excited to sit down and write a test because it's my chance to thi
 
 # Context
 
-<br/>
+---
 
-* `:cause && :effect`
-* More context = more understanding
-
-* More understanding = more predictive power
-
-* More predictive power = more confident decision-making
-
-* More confident decision-making = more happiness!
+`cause && effect`
 
 ^ Storytelling is fantastic because it forces you to think contextually, not in isolation. When I told you extensively about my education background and I how I ended up in software development, each piece of detail helped you place me into a broader context. Some of you maybe took a mental note of my being from Denver, other people maybe feel sorry for all the work and surprises I'm going to find with my 118 year old house. With more context comes more understanding. Web applications are ALL. ABOUT. CAUSE. AND. EFFECT. User does this, do that. Many users do X, do Y. The more time we spend thinking about our functions and features in a broader context, we will write better software.
 
 ---
 
-# Context
+more context ->
 
-<br />
+---
 
-## When we tell stories about our software, we write better software.
+more understanding ->
+
+---
+
+more predictive power ->
+
+---
+
+more confident decision-making ->
+
+---
+
+more 😊 ->
+
+---
+
+better teaching and advocacy
+
+---
+
+## When we tell stories about software, we write it better.
 
 ---
 
 # Abstraction
 
-* Touching a stove
-* Breathing
-* Muscle memory
-* Literally every language
+---
+
+Touching a stove
+ 
+Breathing
+
+Muscle memory
+
+Language
 
 ^ Storytelling and testing are aided by abstraction. Guess what? You are REALLY good at abstraction. I guarantee it. Since you're good at abstraction, you already have the capacity to write great stories and tests.
 
@@ -262,36 +302,45 @@ I'm always so excited to sit down and write a test because it's my chance to thi
 
 # Encapsulation
 
-## _We encapsulate our code, why not our thoughts?_
+---
 
-* Too many jobs makes you bad at all of them.
+### _We encapsulate our code, why not our thoughts?_
+
+---
+
+(Too many jobs makes you bad at all of them.)
+
+# 😬
 
 ^ Just as collaborating objects don't need to know about each other's implementation details, we don't need to know about implementation details when writing tests.
 
 ---
 
-# Encapsulation
+### Code constrains clarity and imagination.
 
-<br />
+---
 
-## Code constrains clarity and imagination.
+### Tests can be your compass home
 
-* Tests can be your compass home
+
 
 ^ Once we start coding, clarity of thought and imagination decline. When we are just thinking about what our programs should do, we don't get held up by syntax or the order of function arguments. If I want to convert a string to a hash of words pointing to their count in the string, I don't need to know how to use reduce off the top of my head in whatever language I'm in. I just need to write a test that specifies how I want to transform an input value, then I can implement a solution bit by bit with the test serving as a compass to keep me moving in the right direction. Most of the problems we solve are not impossible to implement, so I encourage you to have faith that if you document a clear goal via a test, you WILL find a solution.
 
 ---
 
-# Encapsulation
-
 **Meta alert!**
-<br/>
 
-* Programs solve problems
+---
 
-* Programming is a problem-solving process
+- Programs solve problems
 
-* Maybe the principles that make better _programs_ can also result in better _programming_?
+- Programming is a problem-solving process
+
+- The problems we solve solve problems
+
+---
+
+Maybe the principles that make better **programs** can also result in better **programming**?
 
 ---
 
@@ -313,7 +362,7 @@ func TestStoryTellingAndSoftware(t *testing.T) {
 
 ---
 
-Still learning the DSL?
+Still learning the domain specific language (DSL)?
 
 ```js
 /*
@@ -332,11 +381,13 @@ expected:    user
 
 ---
 
-<br />
-<br />
-<br />
-<br />
-## User <---------------------> Programmer
+## Duality
+
+# 👯‍♂️
+
+---
+
+### User <----------X----------> Programmer
 
 ^ We can never forget that as programmers, we are also users. We contain multitudes, as Uncle Walt Whitman might say. Because of this duality, we have to be mindful of which hats we are wearing and when.
 
@@ -344,9 +395,9 @@ expected:    user
 
 # Implementing
 
-<br />
-<br />
-## User <-------------------X> Programmer
+---
+
+### <------------------X> Programmer
 
 ^ When we are implementing, we are not thinking as much about whether or not the software as a whole makes sense. We are just trying to write code that doesn't break and lines up well enough with requirements.
 
@@ -354,28 +405,11 @@ expected:    user
 
 # Storytelling/testing
 
-<br />
-<br />
-## User <X-------------------> Programmer
-
-^ When we are writing tests and describing what our application does, we are more like a user. We are not concerned with enumerable methods under the hood or whether or not we are using ActiveRecord or raw SQL. When you are writing tests, turn off your programmer as much as possible.
-
 ---
 
-```js
-/*
-description: developers
-assert:      should be mindful of context
+### User <X------------------->
 
-actual:      perspective while implementing
-expected:    developer
-actual should be the same as expected
-
-actual:      perspective while testing
-expected:    user
-actual should be the same as expected
-*/
-```
+^ When we are writing tests and describing what our application does, we are more like a user. We are not concerned with enumerable methods under the hood or whether or not we are using ActiveRecord or raw SQL. When you are writing tests, turn off your programmer as much as possible.
 
 ---
 
@@ -383,22 +417,45 @@ actual should be the same as expected
 
 ![inline](https://media.giphy.com/media/phJ6eMRFYI6CQ/giphy.gif)
 
-* 3 Nouns
-* 1 Verb
-* 1 Datatype
+---
+
+# Mad lib
+
+3 Nouns
+
+1 Verb
+
+1 Datatype
 
 ^ Once our story is told and our test is written, the test suite holds us accountable to making that story become, and stay, true. The high level goal is documented, and our implementation is guided by this focus.
 
 ---
 
-Wrap-up
+## Wrap-up
 
-* Testing is a _paradigmatic_ process, not a product.
-* Communication: build good listeners
-* Context: enable confident decision making
-* Abstraction: you're good at it, it let's you do cool stuff.
-* Encapsulation: apply the same discipline to your process as you do to your code.
-* Storytelling keeps you closer to users
+---
+
+Testing is a _paradigmatic_ process, not a product.
+
+---
+
+Communication: build good listeners.
+
+---
+
+Context: enable confident decision making.
+
+---
+
+Abstraction: you're good at it, it opens up doors.
+
+---
+
+Encapsulation: apply the same discipline to your process as you do to your code.
+
+---
+
+Storytelling keeps you closer to users.
 
 ---
 
@@ -406,7 +463,7 @@ Wrap-up
 
 ![inline](https://media.giphy.com/media/13UazF4VlXZgqc/giphy.gif)
 
-* Develop a pendulum workflow between storyteller and developer.
+Develop a pendulum workflow between storyteller and developer.
 
 ^ Obviously we still have to write some code to get anything working. It's also 100% okay and expected that it will be super concrete and rigid at times. Just remember that when you are in your \_spec or \_test file, put on your storyteller hat.
 
