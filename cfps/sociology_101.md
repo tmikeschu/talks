@@ -26,8 +26,8 @@ Outline:
 Personal intro: 1 minute
 Overview of sociological theory: 10 minutes
 Marx and JavaScript: 5 minutes
-Durkheim and Java: 5 minutes
-Weber and Vim: 5 minutes
+Durkheim and Rails: 5 minutes
+Weber and Functional Programming: 5 minutes
 Implementing Change: 5 minutes
 Maintaining Change: 5 minutes
 Summary: 4 minutes
