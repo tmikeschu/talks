@@ -1,4 +1,4 @@
-footer: (TODO slides) @tmikeschu
+footer: 81 @tmikeschu
 build-lists: true
 slidenumbers: true
 
@@ -10,11 +10,7 @@ slidenumbers: true
 
 self.conference
 Mike Schutte
-June 6, 2019
-
----
-
-![](https://media.giphy.com/media/W4GT7vC6Whj9K/giphy.gif)
+June 8, 2019
 
 ---
 
@@ -48,19 +44,66 @@ and my training is based on Ruby and Ruby on Rails.
 
 - Have a few strategies for deciding when to use regex
 
-- Understand capture groups
+- Be like "wow capture groups are _amazing_"
 
 ---
 
 # Roadmap
 
-- Brief Overview of Regular Expressions
+- My soapbox: why regex should be messy
 
-- Why Regex **Should** Be Messy
+- Brief overview of regular expressions
 
-- Capture Groups
+* When to use regex
 
-- Lookaheads
+* Capture groups
+
+---
+
+Disclaimer
+
+![inline](https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png)
+
+---
+
+me using regex
+
+![](https://media.giphy.com/media/W4GT7vC6Whj9K/giphy.gif)
+
+---
+
+## How to deal with
+
+# /regexion/:
+
+---
+
+# Strings and Language
+
+- Typos
+
+- Duplication
+
+- Patterns
+
+- Formats
+
+- Repetition
+
+^ An unmessy tool would be a square peg in a round hole.
+
+---
+
+# Accept it
+
+- Regex is messy
+
+- because string data is messy
+
+- because language is messy
+
+^ Instead of being frustrated with regex, we should be grateful for its capacity
+to parse our hot mess of a human abstraction called language.
 
 ---
 
@@ -76,21 +119,99 @@ and my training is based on Ruby and Ruby on Rails.
 
 - POSIX, Perl, PCRE
 
+- Finite state machine
+
+---
+
+![inline](https://i.ytimg.com/vi/hprXxJHQVfQ/maxresdefault.jpg)
+
+https://www.youtube.com/watch?v=hprXxJHQVfQ
+
 ---
 
 # Code That Wants to be Regexed
 
-## && ||
+---
 
-```js
-someString.includes(someWord) || someString.includes(someOtherWord);
+## If you ask more than one question about a string...
+
+---
+
+## Ditch `&&` and `||` for `//`
+
+---
+
+```diff
+- someString.startsWith(":") &&
+-   someString.split("").some(char => Boolean(Number(char)))
++ /^:.*\d/.test(someString)
+
+- someString.includes("someWord") || someString.includes("someOtherWord");
++ /someWord|someOtherWord/.test(someString)
 ```
 
 ---
 
-# Capture Groups: Keep It Together
+(Array of characters).context < (string).context
 
-`/()/`
+---
+
+> Regex forces you to consider the string as (more of) a whole
+
+---
+
+# Methods to use
+
+---
+
+- Change format
+
+  - String.prototype.replace (=> String)
+
+- Get substring(s)
+
+  - String.prototype.match (=> Array)
+
+- Assert string qualities
+
+  - Regex.prototype.test (=> Boolean)
+
+- Stateful search
+
+  - Regex.prototype.exec (=> Array)
+
+---
+
+You know what those parentheses in regular expressions are, right?
+
+```js
+/(\d+)/;
+```
+
+![inline](https://media.giphy.com/media/l2SpKR1aR4FMBFQwE/giphy.gif)
+
+---
+
+### Capture Groups: Keep It Together
+
+## `/()/`
+
+^ I originally wanted to cover other advanced regex topics in this talk, but as
+I developed the following lesson, I realized that the power of regex is not in
+a single comparison with traditional string methods. The power of regex is in
+its capacity to adapt to changing requirements. Regex has grown on me for the
+same reason functional programming has: something that was hard to learn at
+first has made me more equipped to write more flexible software.
+
+---
+
+- Is familiarity worth rigidity?
+
+- Is difficulty worth flexibility?
+
+---
+
+Is difficulty worth flexibility? :white_check_mark:
 
 ---
 
@@ -102,15 +223,20 @@ someString.includes(someWord) || someString.includes(someOtherWord);
 
 - And returns the name in `Last, First` format
 
+^ This is a case where the meaningful values are the same, we just change the
+way they are formatted. This is a minor difference for us as humans and our big
+awesome brains, but this change really puts standard programming logic to the
+test.
+
 ---
 
 ```js
-const harry = "Harry Potter";
+const albus = "Albus Dumbledore";
 
 function lastFirst(name) {
   // TODO
 }
-console.log(lastFirst(harry)); // => "Potter, Harry"
+console.log(lastFirst(albus)); // => "Dumbledore, Albus"
 ```
 
 ---
@@ -124,7 +250,7 @@ function lastFirst(name) {
     .reverse()
     .join(", ");
 }
-console.log(lastFirst(harry)); // => "Potter, Harry"
+console.log(lastFirst(albus)); // => "Dumbledore, Albus"
 ```
 
 ---
@@ -136,8 +262,20 @@ function lastFirst(name) {
   const reFirstLast = /(\w+)\s(\w+)/;
   return name.replace(reFirstLast, "$2, $1");
 }
-console.log(lastFirst(harry)); // => "Potter, Harry"
+console.log(lastFirst(albus)); // => "Dumbledore, Albus"
 ```
+
+---
+
+[^_]
+
+```js
+someString.replace(/(cats)(dogs)/, (full, group1, group2) => {
+  // do stuff with the groups
+});
+```
+
+[^_]: `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter`
 
 ---
 
@@ -148,9 +286,9 @@ console.log(lastFirst(harry)); // => "Potter, Harry"
 - ...middle names too.
 
 ```js
-const harry = "Harry James Potter";
+const albus = "Albus Percival Dumbledore";
 
-fullName(harry); // => "Potter, Harry James"
+fullName(albus); // => "Dumbledore, Albus Percival"
 ```
 
 ---
@@ -164,7 +302,7 @@ function lastFirst(name) {
     .reverse()
     .join(", ");
 }
-console.log(lastFirst(harry)); // => "Potter, James, Harry"
+console.log(lastFirst(albus)); // => "Dumbledore, Percival, Albus"
 ```
 
 ---
@@ -174,8 +312,8 @@ console.log(lastFirst(harry)); // => "Potter, James, Harry"
 ---
 
 ```js
-function lastFirst2(rawName) {
-  const names = name.split(" ");
+function lastFirst(rawName) {
+  const names = rawName.split(" ");
   const maxIndex = names.length - 1;
   const last = names[maxIndex];
   const rest = names.slice(0, maxIndex);
@@ -183,7 +321,7 @@ function lastFirst2(rawName) {
   return `${last}, ${rest.join(" ")}`;
 }
 
-console.log(lastFirst(harry)); // => "Potter, Harry James"
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival"
 ```
 
 ---
@@ -195,8 +333,10 @@ function lastFirst(name) {
   const reFirstLast = /(\w+)\s(\w+)/;
   return name.replace(reFirstLast, "$2, $1");
 }
-console.log(lastFirst(harry)); // => "James, Harry Potter"
+console.log(lastFirst(albus)); // => "Percival, Albus Dumbledore"
 ```
+
+^ the `Dumbledore` bit is untouched.
 
 ---
 
@@ -209,7 +349,7 @@ function lastFirst(name) {
   const reFirstLast = /(\w+\s*\w*)\s(\w+)/;
   return name.replace(reFirstLast, "$2, $1");
 }
-console.log(lastFirst(harry)); // => "Potter, Harry James"
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival"
 ```
 
 ---
@@ -245,7 +385,7 @@ console.log(lastFirst(harry)); // => "Potter, Harry James"
 
 - and a last bit
 
-- and **sometimes** some extra middle bits in the first bit
+- and _sometimes_ extra middle bits in the first bit
 
 ---
 
@@ -257,7 +397,7 @@ console.log(lastFirst(harry)); // => "Potter, Harry James"
 
 ---
 
-#[fit] That is awesome
+#[fit] That is _awesome_
 
 ---
 
@@ -266,11 +406,80 @@ console.log(lastFirst(harry)); // => "Potter, Harry James"
 ---
 
 - ...middle names too
+- ...multiple middle names
+
+```js
+const albus = "Albus Percival Wulfric Brian Dumbledore";
+lastFirst(albus); // => "Dumbledore, Albus Percival Wulfric Brian"
+```
+
+---
+
+# Approach #1: Split
+
+```js
+function lastFirst(rawName) {
+  const names = rawName.split(" ");
+  const maxIndex = names.length - 1;
+  const last = names[maxIndex];
+  const rest = names.slice(0, maxIndex);
+
+  return `${last}, ${rest.join(" ")}`;
+}
+
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival Wulfric Brian"
+```
+
+---
+
+# :heart_eyes_cat:
+
+---
+
+# Approach #2: Regex
+
+```js
+function lastFirst(name) {
+  const reFirstLast = /(\w+\s*\w*)\s(\w+)/;
+  return name.replace(reFirstLast, "$2, $1");
+}
+console.log(lastFirst(albus)); // => "Wulfric, Albus Percival Brian Dumbledore"
+```
+
+---
+
+# :neutral_face:
+
+---
+
+```diff
+- const reFirstLast = /(\w+\s*\w*)\s(\w+)/;
++ const reFirstLast = /(\w+(\s\w+)*)\s(\w+)/;
+```
+
+---
+
+```js
+function lastFirst(name) {
+  const reFirstLast = /(\w+(\s\w+)*)\s(\w+)/;
+  return name.replace(reFirstLast, "$3, $1");
+}
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival Wulfric Brian"
+```
+
+---
+
+#[fit] :warning: Change Alert :warning:
+
+---
+
+- ...middle names too
+- ...multiple middle names
 - ...suffixes too
 
 ```js
-const harry = "Harry James Potter, Jr.";
-lastFirst(name); // => "Potter, Harry James, Jr."
+const albus = "Albus Percival Wulfric Brian Dumbledore, Jr.";
+lastFirst(albus); // => "Dumbledore, Albus Percival Wulfric Brian, Jr."
 ```
 
 ---
@@ -282,8 +491,8 @@ lastFirst(name); // => "Potter, Harry James, Jr."
 # Approach #1: Split
 
 ```js
-function lastFirst2(rawName) {
-  const names = name.split(" ");
+function lastFirst(rawName) {
+  const names = rawName.split(" ");
   const maxIndex = names.length - 1;
   const last = names[maxIndex];
   const rest = names.slice(0, maxIndex);
@@ -291,7 +500,7 @@ function lastFirst2(rawName) {
   return `${last}, ${rest.join(" ")}`;
 }
 
-console.log(lastFirst(harry)); // => "Jr., Harry James Potter,"
+console.log(lastFirst(albus)); // => "Jr., Albus Percival Wulfric Brian Dumbledore,"
 ```
 
 ---
@@ -315,7 +524,7 @@ function lastFirst(rawName) {
   return output;
 }
 
-console.log(lastFirst(harry)); // => "Potter, Harry James, Jr."
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival, Jr."
 ```
 
 ---
@@ -324,10 +533,10 @@ console.log(lastFirst(harry)); // => "Potter, Harry James, Jr."
 
 ```js
 function lastFirst(name) {
-  const reFirstLast = /(\w+\s*\w*)\s(\w+)/;
-  return name.replace(reFirstLast, "$2, $1");
+  const reFirstLast = /(\w+(\s\w+)*)\s(\w+)/;
+  return name.replace(reFirstLast, "$3, $1");
 }
-console.log(lastFirst(harry)); // => "Potter, Harry James, Jr."
+console.log(lastFirst(albus)); // => "Dumbledore, Albus Percival, Jr."
 ```
 
 ---
@@ -345,12 +554,13 @@ console.log(lastFirst(harry)); // => "Potter, Harry James, Jr."
 ---
 
 - ...middle names too
+- ...multiple middle names
 - ...suffixes too
 - ...just first name is okay ¯\_(ツ)\_/¯
 
 ```js
-const harry = "Harry";
-lastFirst(harry); // => Harry
+const albus = "Albus";
+lastFirst(albus); // => "Albus"
 ```
 
 ---
@@ -372,7 +582,7 @@ function lastFirst(rawName) {
   return output;
 }
 
-console.log(lastFirst(harry)); // => "Harry,"
+console.log(lastFirst(albus)); // => "Albus,"
 ```
 
 ---
@@ -393,7 +603,7 @@ function lastFirst(rawName) {
   if (suffix) {
     return `${output}, ${suffix}`;
   }
-  if (output.lastIndexOf(",") === output.length) {
+  if (output.endsWith(",")) {
     return output.slice(0, output.length - 1);
   }
   return output;
@@ -409,7 +619,7 @@ function lastFirst(rawName) {
   if (suffix) {
     return `${output}, ${suffix}`;
   }
-+ if (output.lastIndexOf(",") === output.length) {
++ if (output.endsWith(",")) {
 +   return output.slice(0, output.length - 1);
 + }
   return output
@@ -420,7 +630,7 @@ function lastFirst(rawName) {
 ```js
 function lastFirst(rawName) {
   const [name, suffix] = rawName.split(", ");
-  const names = nam.split(" ");
+  const names = name.split(" ");
   const maxIndex = names.length - 1;
   const last = names[maxIndex];
   const rest = names.slice(0, maxIndex).join(" ");
@@ -436,6 +646,8 @@ function lastFirst(rawName) {
   return output;
 }
 ```
+
+^ We are rebuilding a string step by step manually. It feels icky!
 
 ---
 
@@ -466,10 +678,10 @@ function lastFirst(rawName) {
 
 ```js
 function lastFirst(name) {
-  const reFirstLast = /(\w+\s*\w*)\s(\w+)/;
-  return name.replace(reFirstLast, "$2, $1");
+  const reFirstLast = /(\w+(\s\w+)*)\s(\w+)/;
+  return name.replace(reFirstLast, "$3, $1");
 }
-console.log(lastFirst(harry)); // => "Harry"
+console.log(lastFirst(albus)); // => "Albus"
 ```
 
 ---
@@ -482,15 +694,49 @@ console.log(lastFirst(harry)); // => "Harry"
 
 ---
 
-# Review
+```js
+const reFirstLast = /(\w+(\s\w+)*)\s(\w+)/;
+```
 
--
+^ If you're like me, you don't find that very pleasant to look at.
 
 ---
 
-# What You Can Do Tomorrow
+## flexibility > readability
 
-- If you find yourself
+---
+
+# ...about "readability"
+
+- Is German readable?
+
+---
+
+### Review
+
+- Rich history specifically designed for analyzing and searching text
+
+- Regex is messy because string data is messy because language is messy
+
+- If you have more than one question about your string...
+
+- Capture groups are great for manipulating substrings
+
+---
+
+Go forth and parse your strings!
+
+---
+
+Embrace the /pain/!
+
+---
+
+Don't fear /regexion/!
+
+---
+
+Response /gracefully/ to change :smile:
 
 ---
 
