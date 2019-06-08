@@ -1,4 +1,4 @@
-footer: 81 @tmikeschu
+footer: 82 @tmikeschu
 build-lists: true
 slidenumbers: true
 
@@ -35,6 +35,14 @@ and my training is based on Ruby and Ruby on Rails.
 ---
 
 ![](https://stemcenter.utexas.edu/sites/default/files/styles/utexas_hero_photo_image/public/TEALS%20Logo_news.jpg?itok=g2gu02Ei)
+
+---
+
+[^-]
+
+![inline](https://www.epi.org/files/2017/color-of-law-cover.jpeg)
+
+[^-]: https://www.epi.org/publication/the-color-of-law-a-forgotten-history-of-how-our-government-segregated-america/
 
 ---
 
