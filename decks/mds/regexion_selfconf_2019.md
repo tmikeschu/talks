@@ -1,4 +1,4 @@
-footer: 82 @tmikeschu
+footer: 83 @tmikeschu
 build-lists: true
 slidenumbers: true
 
@@ -35,6 +35,24 @@ and my training is based on Ruby and Ruby on Rails.
 ---
 
 ![](https://stemcenter.utexas.edu/sites/default/files/styles/utexas_hero_photo_image/public/TEALS%20Logo_news.jpg?itok=g2gu02Ei)
+
+---
+
+Privileges I'm aware of
+
+- white
+
+- cis (he/him)
+
+- straight
+
+- able bodied
+
+- debt free
+
+- young
+
+- college educated
 
 ---
 
