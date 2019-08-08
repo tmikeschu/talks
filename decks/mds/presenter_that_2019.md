@@ -11,19 +11,29 @@ Mike Schutte
 8/8/19
 THAT Conference
 
+^ Welcome and thanks for coming to the talk formerly known as "The Declarative
+Dark". I fell in love with this dandelion analogy this week so here I am telling
+you to get off my grass. Regardless of the title, we're gonna be learning the
+about the same thing today: the presenter pattern.
+
 ---
 
 ![](./images/that-branding.png)
+
+^ Before we get started, a quick reminder about where you are right now in case
+you forgot.
 
 ---
 
 ![](./images/that-sponsors.png)
 
+^...and of course a thank you to these organizations.
+
 ---
 
 [.hide-footer]
 
-- @tmikeschu
+- @tmikeschu (:tea::microphone::shoe:)
 
 - :house_with_garden:
 
@@ -35,11 +45,10 @@ THAT Conference
 
 - ![inline](https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/TED_three_letter_logo.svg/1200px-TED_three_letter_logo.svg.png)
 
-^ My name is Mike Schutte. I live in Detroit where
-my partner Hannah and I look after our lovely 119 year old baby made of bricks,
-wood, and a basement that takes in water. I wrote my first program in the
-summer of 2016 and have loved it ever since. I am a front end engineer at TED,
-and my training is based on Ruby and Ruby on Rails.
+^ My name is Mike Schutte. For anything that has a username I am tmikeschu,
+which can luckily be said using emojis. I live in Detroit with my now fiancée
+in our 119 year-old house. I am originally from out west, Wyoming Montana
+Washington and Colorado, so you can imagine I am a big lover of big sky and wild places. I play guitar and piano and I sing. Ask me about the Avett Brothers. I love running long distances and biking around urban areas. I help spread cool ideas doing front-end stuff at TED.
 
 ---
 
@@ -61,7 +70,7 @@ _friendgineers_ will be able to...
 
 - Detect when a presenter is the tool for the job
 
-- Love Ruby's API (obviously)
+- Expound upon the virtues of the Ruby language
 
 ---
 
@@ -83,6 +92,11 @@ _friendgineers_ will be able to...
 
 - Testing
 
+^ We'll start at a more abstract and theoretical level and discuss what the view
+layer is, what the presenter pattern is, and why it is useful. Then we'll
+descend from the theoretical clouds to the firm ground of production code. Based
+on recent work, I'll highlight some benefits that the pattern can precipitate.
+
 ---
 
 # The View Layer
@@ -95,13 +109,29 @@ _friendgineers_ will be able to...
 
 - JSON
 
+^ The view is the part of an application consumed in the wild. Consumption could
+be viewing HTML in a web browser, fetching a JSON payload from an external API,
+and more.
+
 ---
 
 # The Presenter Pattern
 
-- Controller _gathers_ model data
+- Controller _gathers_ model data and
 - Controller _instantiates_ a presenter object with model data
 - View _sends messages_ to the presenter for all logical needs
+
+^ I'll be using Ruby on Rails as a heuristic. If you're not familiar with Rails
+or MVC architecture, the controller is the http aware unit in the system. The
+model is the database aware unit. We've discussed the view.
+
+---
+
+[.slide-transition: true]<br>
+
+## Controller _constructs_
+
+## View _consumes_
 
 ---
 
@@ -195,12 +225,12 @@ function QuidditchScores({ leadingScorers }) {
 
 ---
 
-A presenter object _encapsulates logic_ (e.g., boolean and transformation) needed for building a particular view.
+A presenter object _encapsulates logic_ (e.g., boolean and transformation) needed for building a particular _view_.
 
 ^ A presenter is an object that is easy to talk to.
 
 ^ The view is under so much pressure to look good and say the right thing. It is
-soothed by having a presenter pattern it can depend on for its data.
+soothed by having a presenter object it can depend on for its data.
 
 ^ The view is still tightly coupled to something, but that something is an
 interface instead of concrete content.
@@ -211,36 +241,56 @@ interface instead of concrete content.
 
 ---
 
+[.slide-transition: true]<br>
+
 ## Controller: integration :dango:
 
 ^ there shouldn't be much unit-testable logic in the controller
 
 ---
 
+[.slide-transition: true]<br>
+
 ## View: content and style :nail_care:
 
 ---
 
-## View: single declarative interface :round_pushpin:
+[.slide-transition: true]<br>
+
+## View: declarative interface :round_pushpin:
 
 ^ If the view template knows too much about the data it needs to compute,
 then any time the data changes, the view needs to change (or be copied).
 
 ---
 
+[.slide-transition: true]<br>
+
 ## View: signal to noise :signal_strength:
 
 ---
 
+[.slide-transition: true]<br>
+
 ## View: explicit dependencies :mag:
 
+^ The presenter's constructor defines everything the view needs to render
+correctly.
+
 ---
+
+[.slide-transition: true]<br>
 
 ## Unit test :white_check_mark:
 
 ---
 
+[.slide-transition: true]<br>
+
 # Lessons from the Field :pencil:
+
+^ As fate would have it, I ran into a great use case for a presenter just last
+month.
 
 ---
 
@@ -258,6 +308,8 @@ then any time the data changes, the view needs to change (or be copied).
 
 ---
 
+[.slide-transition: true]<br>
+
 #[fit] :nose:
 
 ---
@@ -272,7 +324,8 @@ then any time the data changes, the view needs to change (or be copied).
 
 ---
 
-[.build-lists: false]
+[.build-lists: false]<br>
+[.slide-transition: true]<br>
 
 - _84_-line controller action, _0_ helper methods
 - _23_ instance variables used by view
@@ -281,6 +334,10 @@ then any time the data changes, the view needs to change (or be copied).
 - ~~_26_ `if` statements,~~ _20_ ternary expressions
 - _5_ cases of manually iterated markup
 - _20+_ Law of Demeter violations
+
+---
+
+## post-presenter...
 
 ---
 
@@ -304,6 +361,8 @@ Especially if there are multiple sources that can define variables for the view.
 variable actually is only used in a partial. A dev sees that the variable in the
 controller action is not used by the corresponding template, so they delete the
 variable.
+
+^ View libraries like Vue and React do this well with prop types.
 
 ---
 
@@ -361,6 +420,23 @@ end
 
 ---
 
+```rb
+  def self.present(
+    activities:,
+    connections:,
+    event_config:,
+    event_titles:,
+    eventster:,
+    faceoff_data:,
+    hearts:,
+    view_more_photos_url:
+  )
+    # initialize/construct
+  end
+```
+
+---
+
 # Conditional rendering
 
 ^ More often than not, the need for conditional rendering does not change. We only
@@ -377,6 +453,8 @@ too.
 
 ---
 
+[.slide-transition: true]
+
 ## Separate the _statement_ from the _expression_
 
 ---
@@ -388,6 +466,8 @@ too.
 ```
 
 ---
+
+[.slide-transition: true]
 
 ```erb
 <% if locals[:workshops] > 0 ||
@@ -569,7 +649,7 @@ vs.
 
 ---
 
-Many presenter methods might not need unit tests
+## Many presenter methods _might not need unit tests_
 
 ---
 
@@ -631,6 +711,7 @@ Presenters are _dependent_ on some kind of _orchestrator_ for their data
 
 ---
 
+[.slide-transition: true]<br>
 [.code-highlight: all]<br>
 [.code-highlight: 4-13]<br>
 [.code-highlight: 15-22]<br>
@@ -666,6 +747,7 @@ end
 
 ---
 
+[.slide-transition: true]<br>
 [.code-highlight: all]<br>
 [.code-highlight: 1]<br>
 [.code-highlight: 2-9]<br>
@@ -697,6 +779,7 @@ describe "#workshop_days" do
 
 ---
 
+[.slide-transition: true]<br>
 [.code-highlight: all]<br>
 [.code-highlight: 1]<br>
 [.code-highlight: 2-9]<br>
@@ -750,7 +833,7 @@ end
 
 ---
 
-What is a presenter object?
+## What is a presenter object?
 
 a) a laser pointer
 
@@ -760,49 +843,49 @@ c) the view layer of an application
 
 ---
 
-What is a presenter object?
+[.slide-transition: true]<br>
+
+## What is a presenter object?
 
 a) a laser pointer
 
-b) an object that encapsulates logic needed for building a view :white_check_mark:
+b) _an object that encapsulates logic needed for building a view_ :white_check_mark:
 
 c) the view layer of an application
 
 ---
 
-Why is a presenter object useful?
+## Why is a presenter object useful?
 
 a) controller focuses on integration
 
 b) view focuses on content and styling
 
-c) view depends on a single declarative interface
+c) explicitly defines the view's dependencies
 
-d) explicitly defines the view's dependencies
+d) easy to unit test
 
-e) easy to unit test
-
-f) all the above
+e) all the above
 
 ---
 
-Why is a presenter object useful?
+[.slide-transition: true]<br>
+
+## Why is a presenter object useful?
 
 a) controller focuses on integration
 
 b) view focuses on content and styling
 
-c) view depends on a single declarative interface
+c) explicitly defines the view's dependencies
 
-d) explicitly defines the view's dependencies
+d) easy to unit test
 
-e) easy to unit test
-
-f) all the above :white_check_mark:
+e) _all the above_ :white_check_mark:
 
 ---
 
-When might a presenter be the tool for the job?
+## When might a presenter be the tool for the job?
 
 a) computational logic in a controller (-like object)
 
@@ -816,7 +899,9 @@ e) all the above
 
 ---
 
-When might a presenter be the tool for the job?
+[.slide-transition: true]<br>
+
+## When might a presenter be the tool for the job?
 
 a) computational logic in a controller (-like object)
 
@@ -826,11 +911,11 @@ c) complex logic in the view
 
 d) multiple objects used in the view
 
-e) all the above :white_check_mark:
+e) _all the above_ :white_check_mark:
 
 ---
 
-What do you love about the Ruby language?
+## What do you love about the Ruby language?
 
 a) yes
 
@@ -838,22 +923,25 @@ b) I choose to fail the quiz
 
 ---
 
-What do you love about the Ruby language?
+[.slide-transition: true]<br>
 
-a) yes :white_check_mark:
+## What do you love about the Ruby language?
+
+a) _yes_ :white_check_mark:
 
 b) I choose to fail the quiz
 
 ---
 
-[.hide-footer]
-
-# Thank you!
-
-Questions/comments:
-
-_@tmikeschu_ `#getOffMyGrass`
+![](./images/that-2020.png)
 
 ---
 
-![](./images/that-2020.png)
+[.slide-transition: true]<br>
+[.hide-footer]
+
+#[fit] Thank you!
+
+## :tada: :clap: :tada: :clap: :tada: :clap: :tada: :clap: :tada: :clap: :tada: :clap: :tada:
+
+Questions/comments: _@tmikeschu_ `#getOffMyGrass`
